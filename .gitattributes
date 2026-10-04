@@ -1,0 +1,2 @@
+# Shell-Skripte immer mit Unix-Zeilenenden speichern (sonst startet der Container unter Windows-Bearbeitung nicht)
+*.sh text eol=lf

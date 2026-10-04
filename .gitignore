@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+instance/
+*.db
+
+# Lokale Umgebungsvariablen
+.env
+
+# Terraform: State und Variablen enthalten Passwörter -> niemals hochladen
+infra/.terraform/
+infra/*.tfstate
+infra/*.tfstate.*
+infra/terraform.tfvars
+infra/crash.log
+
+# Betriebssystem / Editor
+.DS_Store
+Thumbs.db
+.vscode/

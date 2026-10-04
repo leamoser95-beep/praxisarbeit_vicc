@@ -1,0 +1,25 @@
+# Lokale Testumgebung: dieselbe App mit einer Postgres-Datenbank im Container.
+# Start: docker compose up --build   ->   http://localhost:8000
+# Zeigt gleichzeitig die Portierbarkeit: kein Azure nötig, nur Container + Postgres.
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: caradmin
+      POSTGRES_PASSWORD: lokal-nur-zum-testen
+      POSTGRES_DB: cardb
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U caradmin -d cardb"]
+      interval: 3s
+      retries: 10
+
+  web:
+    build: ./app
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://caradmin:lokal-nur-zum-testen@db:5432/cardb
+      SECRET_KEY: lokaler-test-key
+    depends_on:
+      db:
+        condition: service_healthy
