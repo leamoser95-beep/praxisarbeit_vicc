@@ -1,7 +1,7 @@
 # Kopieren nach terraform.tfvars und Werte anpassen.
 # terraform.tfvars wird NICHT ins Repository hochgeladen (.gitignore).
 
-subscription_id = "04658447-3ab4-4090-b382-27654e45a97d"
+subscription_id = "00000000-0000-0000-0000-000000000000"
 container_image = "docker.io/DEIN-DOCKERHUB-NAME/autovermietung"
 
 # Optional:
