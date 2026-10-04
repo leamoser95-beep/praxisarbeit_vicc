@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Zahlungen{% endblock %}
+{% block content %}
+<h1>Zahlungen</h1>
+
+{% if not payments %}
+    <p class="lead">Noch keine Zahlungen. Sie erscheinen hier, sobald du ein Auto buchst.</p>
+{% else %}
+<div class="table-wrap">
+    <table>
+        <thead>
+            <tr><th>Datum</th><th>Buchung</th><th>Art</th><th class="num">Betrag CHF</th></tr>
+        </thead>
+        <tbody>
+        {% for p in payments %}
+            <tr>
+                <td>{{ p.timestamp|chdate }}</td>
+                <td><a href="{{ url_for('bookings.summary', booking_id=p.booking_id) }}">{{ p.booking.car.name }}</a></td>
+                <td>{{ p.method }}</td>
+                <td class="num {{ 'refund' if p.amount < 0 }}">{{ p.amount|chf }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+{% endblock %}

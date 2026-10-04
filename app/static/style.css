@@ -1,0 +1,163 @@
+/*
+  Fünf Wagen – Stylesheet
+  Idee: Strasse und Schweizer Kontrollschild. Asphaltgrauer Kopf mit gelber
+  Leitlinie, Signalblau für Aktionen, Kennzeichen als wiedererkennbares Element.
+*/
+:root {
+    --asphalt: #262A2E;
+    --signal-blue: #1D4E9A;
+    --signal-blue-dark: #163C77;
+    --lane-yellow: #F1BE2E;
+    --concrete: #ECEEF0;
+    --surface: #FFFFFF;
+    --ink: #1C2024;
+    --muted: #5B636C;
+    --line: #D3D7DB;
+    --error: #B42318;
+    --success: #1F7A4A;
+
+    --font-body: "Barlow", "Segoe UI", system-ui, sans-serif;
+    --font-head: "Barlow Condensed", "Arial Narrow", "Segoe UI", sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    background: var(--concrete);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    line-height: 1.5;
+}
+
+a { color: var(--signal-blue); }
+a:hover { color: var(--signal-blue-dark); }
+:focus-visible { outline: 3px solid var(--lane-yellow); outline-offset: 2px; }
+
+h1, h2 { font-family: var(--font-head); font-weight: 700; line-height: 1.1; margin: 0 0 .5rem; }
+h1 { font-size: 2.6rem; }
+h2 { font-size: 1.5rem; }
+
+/* Kopfzeile mit Leitlinie */
+.site-header { background: var(--asphalt); }
+.bar {
+    max-width: 64rem; margin: 0 auto; padding: 1rem 1.25rem;
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem;
+}
+.brand {
+    font-family: var(--font-head); font-size: 1.9rem; font-weight: 700;
+    color: #fff; text-decoration: none; letter-spacing: .01em;
+}
+.nav { display: flex; flex-wrap: wrap; gap: 1.25rem; }
+.nav a { color: #E3E6E9; text-decoration: none; font-weight: 500; }
+.nav a:hover { color: var(--lane-yellow); }
+.lane {
+    height: 6px;
+    background: repeating-linear-gradient(90deg, var(--lane-yellow) 0 44px, transparent 44px 76px);
+    background-color: var(--asphalt);
+}
+
+.page { max-width: 64rem; margin: 0 auto; padding: 2.5rem 1.25rem 4rem; }
+.narrow { max-width: 28rem; }
+.lead { color: var(--muted); font-size: 1.15rem; margin-top: 0; }
+.aside, .hint, .specs { color: var(--muted); }
+.hint { font-size: .95rem; }
+.back { margin-top: 0; }
+
+/* Das Kontrollschild: weisses Schild, schwarzer Rand, schmale Schrift */
+.plate {
+    display: inline-block;
+    padding: .2rem .6rem;
+    background: #fff;
+    border: 2px solid var(--ink);
+    border-radius: 4px;
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 1.2rem;
+    letter-spacing: .06em;
+    white-space: nowrap;
+    color: var(--ink);
+}
+.plate-large { font-size: 1.8rem; margin-bottom: 1rem; }
+
+/* Formulare */
+.form { display: grid; gap: .35rem; }
+.form label { font-weight: 600; margin-top: .6rem; }
+.form input, .form select {
+    font: inherit; padding: .6rem .7rem;
+    border: 1px solid #A9B0B7; border-radius: 4px; background: var(--surface);
+}
+.btn {
+    display: inline-block; margin-top: 1rem;
+    font: inherit; font-weight: 600;
+    padding: .65rem 1.2rem; border: 0; border-radius: 4px;
+    background: var(--signal-blue); color: #fff; text-decoration: none; cursor: pointer;
+}
+.btn:hover { background: var(--signal-blue-dark); color: #fff; }
+.form .btn { justify-self: start; }
+.btn-quiet {
+    font: inherit; background: none; border: 1px solid var(--line);
+    border-radius: 4px; padding: .3rem .7rem; color: var(--ink); cursor: pointer;
+}
+.btn-quiet:hover { border-color: var(--error); color: var(--error); }
+
+/* Meldungen */
+.flash { padding: .7rem 1rem; border-left: 4px solid; background: var(--surface); margin: 0 0 1.5rem; }
+.flash-error { border-color: var(--error); color: var(--error); }
+.flash-success { border-color: var(--success); color: var(--success); }
+.flash-info { border-color: var(--signal-blue); }
+
+/* Fahrzeugliste */
+.fleet { list-style: none; padding: 0; margin: 2rem 0 0; background: var(--surface); border-top: 3px solid var(--asphalt); }
+.fleet-row {
+    display: grid;
+    grid-template-columns: 9.5rem 1fr auto auto;
+    align-items: center; gap: 1.25rem;
+    padding: 1.1rem 1.25rem; border-bottom: 1px solid var(--line);
+}
+.fleet-row .btn { margin-top: 0; }
+.fleet-row .plate { justify-self: start; }
+.fleet-main h2 { margin: 0; }
+.fleet-main .specs { margin: 0; }
+.fleet-price { text-align: right; }
+.fleet-price strong { font-size: 1.3rem; }
+.status { display: block; font-size: .9rem; font-weight: 600; }
+.status.free { color: var(--success); }
+.status.taken { color: var(--muted); }
+
+/* Buchungsseite */
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 1rem; }
+.split h2 { margin-top: 2rem; }
+.split section:last-child h2 { margin-top: 0; }
+.taken { padding-left: 1.2rem; }
+
+/* Buchungsbeleg */
+.ticket {
+    display: flex; gap: 1.5rem; align-items: flex-start;
+    background: var(--surface); padding: 1.5rem; margin: 1.5rem 0;
+    border-left: 6px solid var(--lane-yellow);
+}
+.ticket h2 { margin-top: 0; }
+.ticket p { margin: .25rem 0; }
+.facts { display: grid; grid-template-columns: auto 1fr; gap: .3rem 1.2rem; margin: 0; }
+.facts dt { color: var(--muted); }
+.facts dd { margin: 0; font-weight: 600; }
+
+/* Tabellen */
+.table-wrap { overflow-x: auto; background: var(--surface); border-top: 3px solid var(--asphalt); margin-top: 1.5rem; }
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: .75rem 1rem; text-align: left; border-bottom: 1px solid var(--line); }
+th { font-weight: 600; color: var(--muted); font-size: .95rem; }
+.num { text-align: right; font-variant-numeric: tabular-nums; }
+.refund { color: var(--success); }
+
+/* Mobile */
+@media (max-width: 720px) {
+    h1 { font-size: 2.1rem; }
+    .fleet-row { grid-template-columns: auto 1fr; gap: .75rem 1rem; }
+    .fleet-main { grid-column: 1 / -1; order: -1; }
+    .fleet-row .btn { grid-column: 1 / -1; justify-self: start; }
+    .split { grid-template-columns: 1fr; gap: 1.5rem; }
+    .ticket { flex-direction: column; }
+}

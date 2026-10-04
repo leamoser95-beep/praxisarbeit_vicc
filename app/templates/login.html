@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Anmelden{% endblock %}
+{% block content %}
+<section class="narrow">
+    <h1>Anmelden</h1>
+    <p class="lead">Fünf Autos, tageweise zu mieten. Melde dich an, um zu buchen.</p>
+
+    <form method="POST" class="form">
+        <label for="email">E-Mail</label>
+        <input id="email" name="email" type="email" autocomplete="email" required>
+
+        <label for="password">Passwort</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" required>
+
+        <button type="submit" class="btn">Anmelden</button>
+    </form>
+
+    <p class="aside">Noch kein Konto? <a href="{{ url_for('auth.register') }}">Konto erstellen</a></p>
+</section>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Buchung {{ booking.id }}{% endblock %}
+{% block content %}
+<section class="narrow">
+    <h1>{% if booking.status == "cancelled" %}Buchung storniert{% else %}Buchung bestätigt{% endif %}</h1>
+
+    <div class="ticket">
+        <span class="plate">{{ booking.car.plate }}</span>
+        <dl class="facts">
+            <dt>Auto</dt><dd>{{ booking.car.name }}</dd>
+            <dt>Abholung</dt><dd>{{ booking.start_date|chdate }}</dd>
+            <dt>Rückgabe</dt><dd>{{ booking.end_date|chdate }}</dd>
+            <dt>Dauer</dt><dd>{{ booking.days }} {{ "Tag" if booking.days == 1 else "Tage" }}</dd>
+            <dt>Preis</dt><dd>{{ booking.total_price|chf }} CHF</dd>
+            <dt>Buchungsnummer</dt><dd>{{ booking.id }}</dd>
+        </dl>
+    </div>
+
+    <p><a href="{{ url_for('bookings.my_bookings') }}">Alle Buchungen</a></p>
+</section>
+{% endblock %}

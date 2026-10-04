@@ -1,0 +1,11 @@
+# Kopieren nach terraform.tfvars und Werte anpassen.
+# terraform.tfvars wird NICHT ins Repository hochgeladen (.gitignore).
+
+subscription_id = "00000000-0000-0000-0000-000000000000"
+container_image = "docker.io/DEIN-DOCKERHUB-NAME/autovermietung"
+
+# Optional:
+# location     = "switzerlandnorth"
+# image_tag    = "latest"
+# min_replicas = 1
+# max_replicas = 5

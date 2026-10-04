@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}{{ car.name }} buchen{% endblock %}
+{% block content %}
+<p class="back"><a href="{{ url_for('cars.list_cars') }}">Zurück zu den Fahrzeugen</a></p>
+
+<div class="split">
+    <section>
+        <span class="plate plate-large">{{ car.plate }}</span>
+        <h1>{{ car.name }}</h1>
+        <p class="specs">{{ car.category }}, {{ car.seats }} Plätze, {{ car.fuel }}</p>
+        <p><strong>{{ car.price_per_day|chf }} CHF</strong> pro Tag</p>
+
+        <h2>Bereits gebucht</h2>
+        {% if taken %}
+            <ul class="taken">
+                {% for b in taken %}
+                <li>{{ b.start_date|chdate }} bis {{ b.end_date|chdate }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Keine Buchungen, das Auto ist an allen Tagen frei.</p>
+        {% endif %}
+    </section>
+
+    <section>
+        <h2>Zeitraum wählen</h2>
+        <form method="POST" class="form">
+            <label for="start_date">Abholung</label>
+            <input id="start_date" name="start_date" type="date" min="{{ today }}" required>
+
+            <label for="end_date">Rückgabe</label>
+            <input id="end_date" name="end_date" type="date" min="{{ today }}" required>
+
+            <label for="method">Zahlungsart</label>
+            <select id="method" name="method" required>
+                {% for m in methods %}<option value="{{ m }}">{{ m }}</option>{% endfor %}
+            </select>
+
+            <p class="hint">Der Betrag wird bei der Buchung belastet (simuliert).</p>
+            <button type="submit" class="btn">Verbindlich buchen</button>
+        </form>
+    </section>
+</div>
+{% endblock %}

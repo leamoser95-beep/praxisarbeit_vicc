@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="de-CH">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Fünf Wagen{% endblock %} – Fünf Wagen Autovermietung</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header class="site-header">
+        <div class="bar">
+            <a class="brand" href="{{ url_for('index') }}">Fünf Wagen</a>
+            {% if current_user.is_authenticated %}
+            <nav class="nav">
+                <a href="{{ url_for('cars.list_cars') }}">Fahrzeuge</a>
+                <a href="{{ url_for('bookings.my_bookings') }}">Meine Buchungen</a>
+                <a href="{{ url_for('payments.list_payments') }}">Zahlungen</a>
+                <a href="{{ url_for('auth.logout') }}">Abmelden</a>
+            </nav>
+            {% endif %}
+        </div>
+        <div class="lane" aria-hidden="true"></div>
+    </header>
+
+    <main class="page">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+                <p class="flash flash-{{ category if category in ['error', 'success'] else 'info' }}" role="status">{{ message }}</p>
+            {% endfor %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

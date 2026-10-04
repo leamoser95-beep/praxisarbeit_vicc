@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Übersicht{% endblock %}
+{% block content %}
+<h1>Hallo {{ current_user.username }}</h1>
+
+{% if next_booking %}
+    <section class="ticket">
+        <span class="plate">{{ next_booking.car.plate }}</span>
+        <div>
+            <h2>
+                {% if next_booking.start_date <= today %}Deine laufende Miete{% else %}Deine nächste Miete{% endif %}
+            </h2>
+            <p>{{ next_booking.car.name }}, {{ next_booking.start_date|chdate }} bis {{ next_booking.end_date|chdate }}
+               ({{ next_booking.days }} {{ "Tag" if next_booking.days == 1 else "Tage" }})</p>
+            <a href="{{ url_for('bookings.summary', booking_id=next_booking.id) }}">Buchung ansehen</a>
+        </div>
+    </section>
+{% else %}
+    <p class="lead">Du hast gerade keine Buchung.</p>
+{% endif %}
+
+<p><a class="btn" href="{{ url_for('cars.list_cars') }}">Auto mieten</a></p>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Meine Buchungen{% endblock %}
+{% block content %}
+<h1>Meine Buchungen</h1>
+
+{% if not bookings %}
+    <p class="lead">Noch keine Buchungen.</p>
+    <p><a class="btn" href="{{ url_for('cars.list_cars') }}">Auto mieten</a></p>
+{% else %}
+<div class="table-wrap">
+    <table>
+        <thead>
+            <tr><th>Auto</th><th>Zeitraum</th><th class="num">Preis CHF</th><th>Status</th><th></th></tr>
+        </thead>
+        <tbody>
+        {% for b in bookings %}
+            <tr>
+                <td><a href="{{ url_for('bookings.summary', booking_id=b.id) }}">{{ b.car.name }}</a></td>
+                <td>{{ b.start_date|chdate }} – {{ b.end_date|chdate }}</td>
+                <td class="num">{{ b.total_price|chf }}</td>
+                <td>
+                    {% if b.status == "cancelled" %}Storniert
+                    {% elif b.end_date < today %}Abgeschlossen
+                    {% elif b.start_date <= today %}Läuft
+                    {% else %}Bestätigt{% endif %}
+                </td>
+                <td>
+                    {% if b.status == "confirmed" and b.start_date > today %}
+                    <form method="POST" action="{{ url_for('bookings.cancel', booking_id=b.id) }}">
+                        <button type="submit" class="btn-quiet">Stornieren</button>
+                    </form>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Fahrzeuge{% endblock %}
+{% block content %}
+<h1>Unsere fünf Autos</h1>
+<p class="lead">Preise pro Tag inklusive Versicherung und 200 km.</p>
+
+<ul class="fleet">
+    {% for car in cars %}
+    <li class="fleet-row">
+        <span class="plate">{{ car.plate }}</span>
+        <div class="fleet-main">
+            <h2>{{ car.name }}</h2>
+            <p class="specs">{{ car.category }}, {{ car.seats }} Plätze, {{ car.fuel }}</p>
+        </div>
+        <div class="fleet-price">
+            <strong>{{ car.price_per_day|chf }}</strong> CHF/Tag
+            <span class="status {{ 'free' if free_today[car.id] else 'taken' }}">
+                {{ "Heute frei" if free_today[car.id] else "Heute vermietet" }}
+            </span>
+        </div>
+        <a class="btn" href="{{ url_for('cars.book', car_id=car.id) }}">Buchen</a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
